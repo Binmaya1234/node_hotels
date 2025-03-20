@@ -76,10 +76,12 @@
 const express = require('express')
 const app = express()
 const database = require('./db');
+require('dotenv').config();
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 const MenuItems = require('./models/MenuItems');
+const PORT=process.env.PORT || 3000;
 
 app.get('/', function (req, res) {
   res.send('Hello World')
@@ -93,7 +95,6 @@ const menuItemsRoutes = require('./routes/menuItemsRoutes');
 app.use('/person',personRoutes);
 app.use('/menu-items',menuItemsRoutes);
 
-
-app.listen(3000,() => {
+app.listen(PORT,() => {
     console.log('server is started at port 3000');
 });
