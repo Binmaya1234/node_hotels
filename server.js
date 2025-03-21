@@ -73,8 +73,8 @@
 // const json = JSON.stringify(objectToConvert);
 // console.log(json);
 
-const express = require('express')
-const app = express()
+const express = require('express');
+const app = express();
 const database = require('./db');
 require('dotenv').config();
 
