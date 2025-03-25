@@ -77,23 +77,33 @@ const express = require('express');
 const app = express();
 const database = require('./db');
 require('dotenv').config();
+const passport = require('./auth');
+
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 const MenuItems = require('./models/MenuItems');
 const PORT=process.env.PORT || 3000;
 
-app.get('/', function (req, res) {
+// Middleware function
+const logRequest = (req, res, next) => {
+    //console.log(`[${new Date().toTimeString()}] Request Made to : ${req.protocol}://${req.get('host')}${req.originalUrl}`);
+    next();
+};
+app.use(logRequest);
+
+    
+app.use(passport.initialize());
+const authenticate = passport.authenticate('local', { session: false });
+
+app.get('/',authenticate, function (req, res) {
   res.send('Hello World')
 })
-
-
-
 
 const personRoutes = require('./routes/personeRoutes');
 const menuItemsRoutes = require('./routes/menuItemsRoutes');
 app.use('/person',personRoutes);
-app.use('/menu-items',menuItemsRoutes);
+app.use('/menu-items',authenticate, menuItemsRoutes);
 
 app.listen(PORT,() => {
     console.log('server is started at port 3000');
