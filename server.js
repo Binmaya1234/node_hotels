@@ -83,6 +83,7 @@ const passport = require('./auth');
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 const MenuItems = require('./models/MenuItems');
+const stdents = require('./models/student');
 const PORT=process.env.PORT || 3000;
 
 // Middleware function
@@ -102,8 +103,10 @@ app.get('/',authenticate, function (req, res) {
 
 const personRoutes = require('./routes/personeRoutes');
 const menuItemsRoutes = require('./routes/menuItemsRoutes');
+const studentRoutes = require('./routes/studentRoutes');
 app.use('/person',personRoutes);
 app.use('/menu-items',authenticate, menuItemsRoutes);
+app.use('/create-student', studentRoutes);
 
 app.listen(PORT,() => {
     console.log('server is started at port 3000');
