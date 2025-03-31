@@ -17,8 +17,8 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 //const dbURI ='mongodb://localhost:27017/hotels';
 // const dbURI = 'mongodb+srv://binmayadash143:Dash123@cluster0.zecx5.mongodb.net/?retryWrites=true&w=majority';
-const dbURI = process.env.DB_URL_LOCAL;
-//const dbURI = process.env.DB_URL;
+//const dbURI = process.env.DB_URL_LOCAL;
+const dbURI = process.env.DB_URL;
 // Function to connect to MongoDB
 async function connectDB() {
   try {
